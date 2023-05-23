@@ -27,3 +27,16 @@ def handle_response(response):
         query = "Select"+ query
     return query
 
+def execute_query(engine, query):
+    """Execute a query on a database.
+
+    Args:
+        engine (SQLAlchemy engine object): database engine
+        query (string): SQL query
+
+    Returns:
+        list: List of tuples containing the result of the query
+    """
+    with engine.connect() as conn:
+        result = conn.execute(text(query))
+        return result.fetchall()
