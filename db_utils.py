@@ -13,3 +13,17 @@ def dataframe_to_database(df, table_name):
     df.to_sql(name=table_name, con=engine, index=False)
     return engine
 
+def handle_response(response):
+    """Handles the response from OpenAI.
+
+    Args:
+        response (openAi response): Response json from OpenAI
+
+    Returns:
+        string: Proposed SQL query
+    """
+    query = response["choices"][0]["text"]
+    if query.startswith(" "):
+        query = "Select"+ query
+    return query
+
